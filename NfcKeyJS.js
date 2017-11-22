@@ -97,8 +97,8 @@ NfcKey.prototype = (function () {
             var i;
             var uid8 = parseHexUid(uid);
             var rotUid = new Uint8Array(8);
-            var rotation = ((uid8[1] + uid8[3] + uid8[5] + uid8[7]) & 7) >>> 0;
-            for (i = 0; i <= 7; i++)
+            var rotation = ((uid8[1] + uid8[3] + uid8[5]) & 7) >>> 0;
+            for (i = 0; i < 7; i++)
                 rotUid[((i + rotation) & 7) >>> 0] = uid8[i];
 
             var transfUid = transform(rotUid);
@@ -117,8 +117,8 @@ NfcKey.prototype = (function () {
             var i;
             var uid8 = parseHexUid(uid);
             var rotUid = new Uint8Array(8);
-            var rotation = ((uid8[2] + uid8[5] + uid8[7]) & 7) >>> 0;
-            for (i = 0; i <= 7; i++)
+            var rotation = ((uid8[2] + uid8[5]) & 7) >>> 0;
+            for (i = 0; i < 7; i++)
                 rotUid[((i + rotation) & 7) >>> 0] = uid8[i];
 
             var transfUid = transform(rotUid);
