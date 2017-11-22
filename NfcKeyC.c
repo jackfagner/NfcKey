@@ -76,7 +76,7 @@ uint32_t getkey(uint8_t* uid)
 {
 	uint8_t i;
 	//Rotate
-	uint8_t r = (uid[1] + uid[3] + uid[5] + uid[7]) & 7; //Rotation offset
+	uint8_t r = (uid[1] + uid[3] + uid[5]) & 7; //Rotation offset
 	uint8_t ru[8] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; //Rotated UID
 	for (i = 0; i < 7; i++)
 		ru[(i + r) & 7] = uid[i];
@@ -97,7 +97,7 @@ uint16_t getpack(uint8_t* uid)
 {
 	uint8_t i;
 	//Rotate
-	uint8_t r = (uid[2] + uid[5] + uid[7]) & 7; //Rotation offset
+	uint8_t r = (uid[2] + uid[5]) & 7; //Rotation offset
 	uint8_t ru[8] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 }; //Rotated UID
 	for (i = 0; i < 7; i++)
 		ru[(i + r) & 7] = uid[i];
