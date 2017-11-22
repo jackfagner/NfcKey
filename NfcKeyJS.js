@@ -1,4 +1,4 @@
-﻿/*
+/*
     Copyright (C) 2017  github.com/jackfagner
 
     This file is part of NfcKey.
@@ -80,6 +80,13 @@ NfcKey.prototype = (function () {
             | ((val >>> 24) & 0xFF)) >>> 0;
     };
 
+    var tohex = function (b, l) {
+        var h = b.toString(16).toUpperCase();
+        if (h.length % 2 !== 0)
+            return '0' + h;
+        return h;
+    };
+
     return {
 
         constructor: NfcKey,
@@ -101,7 +108,7 @@ NfcKey.prototype = (function () {
             for (i = 0; i < 4; i++)
                 intKey = transfUid[i + offset] + ((intKey << 8) >>> 0);
 
-            return swap32(intKey).toString(16).toUpperCase();
+            return tohex(swap32(intKey));
         },
 
         getPack: function (uid) {
@@ -121,7 +128,7 @@ NfcKey.prototype = (function () {
                 intPack += transfUid[i] * 13;
 
             var res = ((intPack ^ 0x5555) >>> 0) & 0xFFFF;
-            return swap16(res).toString(16).toUpperCase();
+            return tohex(swap16(res));
         }
 
     };
