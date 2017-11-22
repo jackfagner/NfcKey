@@ -34,12 +34,10 @@ namespace NfcHack
         {
             if (uid == null || uid.Length != 7)
                 throw new ArgumentException("UID must be 7 bytes");
-            var uid8 = new Byte[8];
-            uid.CopyTo(uid8, 0);
             var rotUid = new Byte[8];
-            var rotation = (uid8[1] + uid8[3] + uid8[5] + uid8[7]) & 7;
-            for (var i = 0; i <= 7; i++)
-                rotUid[(i + rotation) & 7] = uid8[i];
+            var rotation = (uid[1] + uid[3] + uid[5]) & 7;
+            for (var i = 0; i < 7; i++)
+                rotUid[(i + rotation) & 7] = uid[i];
 
             var transfUid = TransformUid(rotUid);
 
@@ -55,12 +53,10 @@ namespace NfcHack
         {
             if (uid == null || uid.Length != 7)
                 throw new ArgumentException("UID must be 7 bytes");
-            var uid8 = new Byte[8];
-            uid.CopyTo(uid8, 0);
             var rotUid = new Byte[8];
-            var rotation = (uid8[2] + uid8[5] + uid8[7]) & 7;
-            for (var i = 0; i <= 7; i++)
-                rotUid[(i + rotation) & 7] = uid8[i];
+            var rotation = (uid[2] + uid[5]) & 7;
+            for (var i = 0; i < 7; i++)
+                rotUid[(i + rotation) & 7] = uid[i];
 
             var transfUid = TransformUid(rotUid);
 
