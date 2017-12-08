@@ -82,8 +82,8 @@ NfcKey.prototype = (function () {
 
     var tohex = function (b, l) {
         var h = b.toString(16).toUpperCase();
-        if (h.length % 2 !== 0)
-            return '0' + h;
+        while (l && h.length < l / 4)
+            h = '0' + h;
         return h;
     };
 
@@ -108,7 +108,7 @@ NfcKey.prototype = (function () {
             for (i = 0; i < 4; i++)
                 intKey = transfUid[i + offset] + ((intKey << 8) >>> 0);
 
-            return tohex(swap32(intKey));
+            return tohex(swap32(intKey), 32);
         },
 
         getPack: function (uid) {
@@ -128,7 +128,7 @@ NfcKey.prototype = (function () {
                 intPack += transfUid[i] * 13;
 
             var res = ((intPack ^ 0x5555) >>> 0) & 0xFFFF;
-            return tohex(swap16(res));
+            return tohex(swap16(res), 16);
         }
 
     };
