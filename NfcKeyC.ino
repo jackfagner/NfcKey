@@ -93,7 +93,7 @@ uint32_t getkey(uint8_t* uid)
 	//Calc key
 	uint32_t k = 0; //Key as int
 	r = (ru[0] + ru[2] + ru[4] + ru[6]) & 3; //Offset
-	for (i = 4; i >= 0; i--) 
+	for (i = 3; i >= 0; i--) 
 		k = ru[i + r] + (k << 8);
 
 	return k;
@@ -112,7 +112,7 @@ uint16_t getpack(uint8_t* uid)
 	transform(ru);
 
 	//Calc pack
-	uint32_t p = 0;
+	uint16_t p = 0;
 	for (i = 0; i < 8; i++)
 		p += ru[i] * 13;
 	
