@@ -1,1 +1,107 @@
-<html></html>
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>NFC Keys for 3D printers</title>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    
+    <script src="NfcKey.js"></script>
+    <script src="script.js"></script>
+</head>
+<body>
+    <div>
+        <div>
+            <h1>3D printer NFC key calculator</h1>
+            <p>
+                This service will calculate the valid key and PACK for your filament NFC tag.
+            </p>
+            <p>
+                Wohoo! The source code is <a href="https://github.com/jackfagner/NfcKey" target="_blank">freely available at GitHub</a>.
+            </p>
+        </div>
+        <div class="m">
+            <h2>The magic tool</h2>
+
+            <div>
+                <h3>UID</h3>
+                <p>
+                    UID:&nbsp;<input type="text" name="uid" id="uid" placeholder="04 XX XX XX XX XX 80" maxlength="20" />
+                </p>
+            </div>
+            <div>
+                <span>or</span>
+            </div>
+            <div>
+                <h3>Tag pages</h3>
+                <p>
+                    &nbsp;&nbsp;0:&nbsp;<input type="text" name="page0" id="page0" placeholder="Page 0: 04 XX XX XX" maxlength="11" /><br>
+                    &nbsp;&nbsp;1:&nbsp;<input type="text" name="page1" id="page1" placeholder="Page 1: XX XX XX 80" maxlength="11" />
+                </p>
+            </div>
+
+            <div class="r">
+                <h2>Result</h2>
+                <p class="uid">
+                    UID:&nbsp;&nbsp;<span></span>
+                </p>
+                <p class="key">
+                    KEY:&nbsp;&nbsp;<span></span>
+                </p>
+                <p class="pack">
+                    PACK:&nbsp;<span></span>
+                </p>
+            </div>
+            <div class="d">
+                <h2>Maybe you want to donate now?</h2>
+                <p>
+                    <a href="https://paypal.me/nfckey" target="_blank" class="pp">Donate</a>
+                </p>
+            </div>
+
+        </div>
+        <div>
+            <h2>Background &amp; credit</h2>
+            <p>
+                Some 3D printers are using NFC chips inside the filament rolls to limit end users freedom of choice.
+                To generate your own NFC tags and bypass this limitation you need to figure out a key and PACK code that corresponds to the unique ID of your tag.
+            </p>
+            <p>
+                The key and PACK is generated using a rather complex (until you know it, of course) algorithm inside a chip on the printer motherboard,
+                and to retrive this algorithm I had to disassemble the printer, solder 10 cables to the motherboard, and buy some rather expansive equpment.
+            </p>
+            <p>
+                All toghether I spent more than <b>$800</b> (yes, for real) on hardware tools:
+                <a href="https://github.com/emsec/ChameleonMini/wiki" target="_blank">Chameleon Mini revG</a>,
+                <a href="http://proxmark.org/" target="_blank">Proxmark3</a>,
+                <a href="http://dangerousprototypes.com/docs/Bus_Pirate_v4" target="_blank">BusPirate v4</a>,
+                <a href="http://www.atmel.com/tools/ATATMEL-ICE.aspx" target="_blank">Atmel-ICE</a> and
+                <a href="https://www.segger.com/products/debug-probes/j-link/" target="_blank">Segger J-Link</a> - plus a few NFC cards and cables.
+            </p>
+            <p>
+                Using these tools I investigated both the NFC tags and the printer motherboard.
+                I dumped and debugged the primary chip (Atmel ATSAM4E8E) as well as the chip controlling the NFC reader (NXP LPC1115F).
+                After locating the key and PACK algorthms in the NXP chip I converted the assembler code to more useful (readable) code.
+                You are looking at the result.
+            </p>
+            <p>
+                I am providing this key/PACK calculation tool for <b>free</b>. However, if you find it useful you may show your gratitude by giving a <a href="https://paypal.me/nfckey" target="_blank"><b>small donation</b></a>.
+                I might just get encouraged to further investigate/hack this device, like decrypting the firmware bin and modifying the firmware to fully disable NFC checks - it should be possible.
+            </p>
+            <p>
+                <a href="https://paypal.me/nfckey" target="_blank" class="pp">Donate</a>
+            </p>
+            <p>
+                <b>Credit</b>
+            </p>
+			<ul>
+				<li><a href="http://www.soliforum.com/user/13260/" target="_blank">greatone76</a> for investigating UIDs and finding patterns in the keys</li>
+				<li><a href="http://www.soliforum.com/user/17452/" target="_blank">pyr0ball</a> for researching the motherboard, finding the JTAG/SWD port and sharing a schematic diagram</li>
+				<li><a href="http://www.soliforum.com/user/17407/" target="_blank">Daniel456</a> &amp; <a href="http://www.soliforum.com/user/17422/" target="_blank">magnusjjj</a> for dumping the eeprom and finding the first unencrypted firmware</li>
+				<li><a href="https://github.com/iceman1001/proxmark3" target="_blank">iceman</a> for the icemanfork Proxmark3 firmware and for general support/cheering</li>
+			</ul>
+        </div>
+    </div>
+</body>
+</html>
